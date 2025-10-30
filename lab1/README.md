@@ -44,9 +44,8 @@
 
 2. Используя метод проб и ошибок, введем следующий порядок $\succ_{\text{L}}$:
 
-- Читаем справа налево
-- Лексикографически оцениваем ($\prec_{\text{lex}}$) по алфавиту: $a \prec b \prec c$
-- Если суффиксы равны, то больше то слово, что длиннее: $\varepsilon \prec a$
+- Количество букв $b$
+- Длина слова
 
 Проверим каждое правило на уменьшение в этом порядке:
 
@@ -55,35 +54,57 @@
 \begin{aligned}
 
 aabc &\rightarrow bbaa; \quad
-\left(aab\underline{c} \succ_{\text{L}} bba\underline{a} \right) \Rightarrow Уменьшается \\
+\left(aa\underline{b}c \prec_{\text{L}} \underline{bb}aa \right) \Rightarrow Увеличивается \\
 
 b &\rightarrow ccaa; \quad
-\left(\underline{b} \succ_{\text{L}} cca\underline{a} \right) \Rightarrow Уменьшается \\
+\left(\underline{b} \succ_{\text{L}} ccaa \right) \Rightarrow Уменьшается \\
 
 bc &\rightarrow a; \quad
-\left(b\underline{c} \succ_{\text{L}} \underline{a} \right) \Rightarrow Уменьшается \\
+\left(\underline{b}c \succ_{\text{L}} a \right) \Rightarrow Уменьшается \\
 
 aac &\rightarrow \varepsilon; \quad
-\left(ссa\underline{a}c \prec_{\text{L}} \underline{c}c \right) \Rightarrow Неизвестно \\
+\left(aaс \succ_{\text{L}} \varepsilon \right) \Rightarrow Уменьшается \\
 
 
 \end{aligned}
 \right.
 ```
 
-Тогда несмотря на отсутствие строгого уменьшения в последнем правиле, все остальные правила строго уменьшают слово в этом порядке.
+Заметим, что правило $aabc \rightarrow bbaa$ увеличивает слово в порядке $\succ_{\text{L}}$.
 
-Заметим также, что последнее правило невозможно применять бесконечно, так как рано или поздно все $aac$ перейдут в пустую строку.
+Найдем все нормальные формы слова $aabc$:
 
-Таким образом, каждый раз иссекая $aac$, мы будем гарантировано уменьшать слово по порядку $\succ_{\text{L}}$, что означает отсутствие бесконечных цепочек переписывания и завершимость системы.
+```mermaid
+stateDiagram-v2
+    aabc --> bbaa : aabc -> bbaa
+        bbaa --> ccaabaa : b -> ccaa
+            ccaabaa --> ccaaccaaaa : b -> ccaa
+                ccaaccaaaa --> cccaaaa : aac -> ε
+                    note right of cccaaaa: НФ
+        bbaa --> bccaaaa : b -> ccaa
+            bccaaaa --> acaaaa : bc -> a
+                note right of acaaaa: НФ
+            bccaaaa --> ccaaccaaa : b -> ccaa
+                ccaaccaaa --> cccaaaa : aac -> ε
 
-> [Замечу также возможное противоречие](./kb.md)
+    aabc --> aaa : bc -> a
+        note right of aaa: НФ
 
-### Конечность классов эквивалентности по НФ
+    aabc --> aaccaac : b -> ccaa
+        aaccaac --> c : aac -> ε
+            note right of c: НФ
+```
 
-Поскольку правила переписывания никак не затрагивают $c$ отдельно, то $\forall n \geq 0$ слово $c^n$ не изменяется системой и является нормальной формой.
+Рассмотрим теперь нормальные формы слова $aabc$ в порядке $\succ_{\text{L}}$ относительно него самого:
 
-Таким образом, существует бесконечно много классов эквивалентности по нормальной форме, соответствующих $c^n$ для всех $n$.
+- $aa\underline{b}c \succ_{\text{L}} aaa$
+- $aa\underline{b}c \succ_{\text{L}} c$
+- $aa\underline{b}c \succ_{\text{L}} acaaaa$
+- $aa\underline{b}c \succ_{\text{L}} cccaaaa$
+
+Таким образом все нормальные формы слова $aabc$ меньше самого слова $aabc$ в порядке $\succ_{\text{L}}$. Что значит, что правило $aabc \rightarrow bbaa$ также уменьшает порядок.
+
+Соответственно все правила уменьшают порядок $\succ_{\text{L}}$, который бесконечно уменьшаться не может, а значит наша система завершается.
 
 ### Локальная конфлюэнтность и пополняемость по Кнуту-Бендиксу
 
@@ -225,9 +246,15 @@ stateDiagram-v2
     ab --> aa : c %% abc -> aa
 ```
 
-Посстроим соответствующую систему переписывания, беря правила из автомата
-(то есть все стрелки, которые не ведут себя в соответствии с добовляемыми буквами,
-пример: $a \xrightarrow{a} aa$ - норм, однако $a \xrightarrow{c} ab$ - не норм, так как добавление $a$ к $a$ должно вести к $aa$, а не к $ab$):
+Построим соответствующую систему переписывания, беря правила из автомата
+(то есть берем все стрелки, которые не ведут себя в соответствии с добавляемыми буквами)
+
+Пример добавление правила:
+
+- $a \xrightarrow{a} aa \quad$ - ожидаемое поведение.
+- $a \xrightarrow{c} ab \quad$ - необычное поведение, так как добавление $a$ к $a$ должно вести к $aa$, а не к $ab$). Следовательно, добавляем правило $ac \rightarrow ab$.
+
+Продолжая этот процесс, получаем следующую систему переписывания:
 
 ```math
 \left\{
@@ -247,7 +274,7 @@ stateDiagram-v2
 \right.
 ```
 
-Удаляем лишние, включающие в себя другие, правила, оставляя только минимальный набор:
+Удаляем лишние, включающие в себя другие, правила, оставляя только минимальный набор. Для этого пойдем от ε и будем добавлять по одной букве, строя стрелки по уже известным правилам.
 
 Итоговый минимальный автомат
 
@@ -287,11 +314,21 @@ stateDiagram-v2
 
 ## Тестирование
 
+Перейдем в папку решения
+
+```bash
+cd lab1/solution
+```
+
 ## Фаззинг
 
 ```bash
 cargo run --bin fuzz
+```
 
+Пример вывода программы фаззинг тестирования:
+
+```
 ...
 Applying rule b -> aaa on bbbabcbbb with result {bbbaaaacbbb, baaababcbbb, bbaaaabcbbb, bbbabcaaabb, bbbabcbaaab, bbbabcbbaaa, aaabbabcbbb}
 Applying rule ab -> ba on bbbabcbbb with result {bbbbacbbb}
@@ -304,6 +341,21 @@ Fuzz test completed
 
 ```bash
 cargo run --bin inv
+```
+
+Пример вывода программы тестирования инвариантов:
+
+```
+...
+GetNormalForms: Current string: babababcc
+GetNormalForms: Normal forms so far: {a}
+Calculating inv2 for a: 0
+--- Inv3 ---
+Calculating inv3 for cabbaabcc: false
+Word cabbaabcc violates inv3, skipping further checks.
+---
+All invariant equivalence tests passed
+
 ```
 
 ### Гомоморфизм в циклическую группу порядка 5
