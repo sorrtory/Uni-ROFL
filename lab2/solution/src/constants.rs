@@ -4,4 +4,4 @@ pub const ALPHABET: &[char] = &['a', 'b', 'c'];
 
 // Note: regex crate requires ^ and $ for full match
 pub const REGEX_PATTERN: &str = "^((aa|ab|cc)*aba(aaa|bcc)*)*((abac|(cc)*)(b|ca))*$";
-pub const EXTENDED_REGEX_PATTERN: &str = "^((((a[ab]|cc)+)?aba((aaa|bcc)+)?)+)?(((abac|((cc)+)?)(b|ca))+)?$";
+pub const EXTENDED_REGEX_PATTERN: &str = "^((a[ab]|cc)*aba(aaa|bcc)*)*(?!((a[ab]|cc)*aba(aaa|bcc)*)((abac|(cc)*)(b|ca))*$)((abac|(cc)*)(b|ca))*$";

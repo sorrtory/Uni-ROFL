@@ -202,10 +202,10 @@ pub fn shortest_words_from_initial(automata: &automata::Automata) -> Vec<Option<
 fn main() {
     // Build automata and transitions
 
-    let mut automata = DFA::new();
+    // let mut automata = DFA::new();
     // let mut automata = NFA::new();
     // let mut automata = AFA_bcb::new();
-    // let mut automata = AFA_suf::new();
+    let mut automata = AFA_suf::new();
     automata.init_transitions();
 
     // PREFIXES: shortest words from initial state to each state
