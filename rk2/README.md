@@ -118,8 +118,10 @@ R = a^*b^*a^*b^*a^*b^*a^*b^*a^*b^*a^*b^*a^*
 
 Тогда получим слова
 
-- $xy = \underbrace{a^pa}_{w}\underbrace{b}_{v^R}\underbrace{a}_{u}\underbrace{b}_{v}\underbrace{a^pa}_{w^R}$
-- $yz = \underbrace{a^pababa^p}_{w}\underbrace{b}_{v^R}\underbrace{a}_{u}\underbrace{b}_{v}\underbrace{a^pbabaa^p}_{w^R}$
+```math
+xy = \underbrace{a^pa}_{w} \ \underbrace{b}_{v^R} \ \underbrace{a}_{u} \ \underbrace{b}_{v} \ \underbrace{a^pa}_{w^R} \\
+yz = \underbrace{a^pababa^p}_{w} \ \underbrace{b}_{v^R} \ \underbrace{a}_{u} \ \underbrace{b}_{v} \ \underbrace{a^pbabaa^p}_{w^R}
+```
 
 Причем других разбиений не будет, поскольку в $v$ не могут быть символы $a$, а в $u$ не могут быть символы $b$ и они обязаны быть непустыми.
 
