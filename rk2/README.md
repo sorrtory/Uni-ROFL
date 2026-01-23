@@ -123,15 +123,15 @@ xy = \underbrace{a^pa}_{w}\underbrace{b}_{v^R}\underbrace{a}_{u}\underbrace{b}_{
 ```
 
 ```math
-yz = \underbrace{a^pababa^p}_{w}\underbrace{b}_{v^R}\underbrace{a}_{u}\underbrace{b}_{v}\underbrace{a^pbabaa^p}_{w^R}
+xz = \underbrace{a^pababa^p}_{w}\underbrace{b}_{v^R}\underbrace{a}_{u}\underbrace{b}_{v}\underbrace{a^pbabaa^p}_{w^R}
 ```
 
 Причем других разбиений не будет, поскольку в $v$ не могут быть символы $a$, а в $u$ не могут быть символы $b$ и они обязаны быть непустыми.
 
 Тогда
 
-1. Если качать только $x$, то мы сразу выйдем из слова $yz$ (не будет соблюден $w^R$). Значит $x$ не накачивается.
-2. Тогда для любого разбиения $x = x_1 x_2 x_3$, где $|x_2| > 0 \;\land |x_2 x_3| \leq p$ в $x$ мы сможем качать только символы $a$ из правого $a^p$, тогда у нас всегда будет ломаться $w^R$ в слове $xy$.
+1. Если качать только $x$, то мы сразу выйдем из слова $xz$ (не будет соблюден $w^R$). Значит $x$ не накачивается.
+2. Тогда для любого разбиения $x = x_1 x_2 x_3$, где $|x_2| > 0 \ \land |x_2 x_3| \leq p$ в $x$ мы сможем качать только символы $a$ из правого $a^p$, тогда у нас всегда будет ломаться $w^R$ в слове $xy$.
 
 Значит $L \cap R$ не является ДПДА, а значит и $L$ не является ДПДА.
 
@@ -139,11 +139,11 @@ yz = \underbrace{a^pababa^p}_{w}\underbrace{b}_{v^R}\underbrace{a}_{u}\underbrac
 
 ### Условие
 
-- $S \to a\,S\,b\,S$  $S.a := \min(S_1.a,\, S_2.a), S_1.a == S_2.a$
-- $S \to T$  $S.a := T.a$
-- $T \to a\,T\,a$  $T.a := T_1.a + 1$
-- $T \to b\,T\,b$  $T.a := T_1.a$
-- $T \to bb$  $T.a := 0$
+- $S \to a\,S\,b\,S \quad S.a := \min(S_1.a,\, S_2.a), S_1.a == S_2.a$
+- $S \to T \quad S.a := T.a$
+- $T \to a\,T\,a \quad T.a := T_1.a + 1$
+- $T \to b\,T\,b \quad T.a := T_1.a$
+- $T \to bb \quad T.a := 0$
 
 ### Решение
 
@@ -158,7 +158,7 @@ S = a abba b abba
 Не подходит, аттрибут не выполнится
 S = a aabbaa b abba
 
-Тогда можем создавать сложенные конструкции aSbS вида:
+Тогда можем создавать вложенные конструкции aSbS вида:
 S = a (a abba b abba) b (a abba b abba)
 ```
 
