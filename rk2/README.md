@@ -120,7 +120,9 @@ R = a^*b^*a^*b^*a^*b^*a^*b^*a^*b^*a^*b^*a^*
 
 ```math
 xy = \underbrace{a^pa}_{w}\underbrace{b}_{v^R}\underbrace{a}_{u}\underbrace{b}_{v}\underbrace{a^pa}_{w^R}
-\newline
+```
+
+```math
 yz = \underbrace{a^pababa^p}_{w}\underbrace{b}_{v^R}\underbrace{a}_{u}\underbrace{b}_{v}\underbrace{a^pbabaa^p}_{w^R}
 ```
 
